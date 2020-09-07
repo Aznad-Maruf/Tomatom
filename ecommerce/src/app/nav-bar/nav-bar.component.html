@@ -1,37 +1,48 @@
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-    <li [ngbNavItem]="1">
-      <a ngbNavLink routerLink="/" class="text-info">E</a>
-    </li>
-    <li [ngbNavItem]="2">
-      <a ngbNavLink routerLink="/shopping-cart">Shopping Cart</a>
-      <ng-template ngbNavContent>
+  <li [ngbNavItem]="1">
+    <a ngbNavLink routerLink="/" class="text-info">E</a>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink routerLink="/shopping-cart">Shopping Cart</a>
+    <ng-template ngbNavContent> </ng-template>
+  </li>
+  <li [ngbNavItem] *ngIf="!backEnd.isLoggedIn()">
+    <a class="btn btn-info" ngbNavLink routerLink="/login">Login</a>
+    <ng-template ngbNavContent> </ng-template>
+  </li>
+  <li [ngbNavItem] *ngIf="!backEnd.isLoggedIn()">
+    <a class="btn btn-danger" ngbNavLink routerLink="/register">Register</a>
+    <ng-template ngbNavContent> </ng-template>
+  </li>
+  <li [ngbNavItem] *ngIf="backEnd.userName()">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn" id="dropdownBasic1" ngbDropdownToggle>
+        {{ backEnd.userName() }}
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem routerLink="/my/orders">My Orders</button>
+        <button
+          *ngIf="backEnd.isAdmin()"
+          ngbDropdownItem
+          routerLink="/admin/orders"
+        >
+          Manage Orders
+        </button>
+        <button
+          *ngIf="backEnd.isAdmin()"
+          ngbDropdownItem
+          routerLink="/admin/products"
+        >
+          Manage Products
+        </button>
         
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="2">
-      <a class="btn btn-info" ngbNavLink routerLink="/login">Login</a>
-      <ng-template ngbNavContent>
-        
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="2">
-      <a class="btn btn-danger" ngbNavLink routerLink="/register">Register</a>
-      <ng-template ngbNavContent>
-        
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="3" *ngIf="">
-        <div ngbDropdown class="d-inline-block">
-            <button class="btn" id="dropdownBasic1" ngbDropdownToggle>Username</button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem routerLink="/my/orders">My Orders</button>
-              <button ngbDropdownItem routerLink='/admin/orders'>Manage Orders</button>
-              <button ngbDropdownItem routerLink='/admin/products'>Manage Products</button>
-              <button ngbDropdownItem>Log Out</button>
-            </div>
-          </div>
-    </li>
-    
-  </ul>
-  
-  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      </div>
+    </div>
+  </li>
+  <li [ngbNavItem] *ngIf="backEnd.isLoggedIn()">
+    <a class="btn btn-info" ngbNavLink routerLink="/logout" (click)='backEnd.logOut()'>Logout</a>
+    <ng-template ngbNavContent> </ng-template>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

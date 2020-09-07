@@ -4,13 +4,17 @@
     <input
       required minlength="3"
       ngModel
-      #name
+      #name = "ngModel"
       type="text"
       class="form-control"
       name="name"
       placeholder="Enter name"
       autofocus
     />
+    <div *ngIf="name.invalid && name.touched" class="alert alert-danger">
+      <div *ngIf="name.errors.required">Name is required</div>
+      <div *ngIf="name.errors.minlength">Name is required</div>
+    </div>
   </div>
   <div class="form-group">
     <label for="email">Email address</label>
@@ -18,16 +22,23 @@
       required
       email='true'
       ngModel
-      #email
+      #email="ngModel"
+      appLowerCase
       type="email"
       class="form-control"
       name="email"
       aria-describedby="emailHelp"
       placeholder="Enter email"
+      (change)="test(email)"
     />
     <small id="emailHelp" class="form-text text-muted"
-      >We'll never share your email with anyone else.</small
-    >
+      >
+      We'll never share your email with anyone else.
+      </small>
+      <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
+        <div *ngIf="email.errors.required">Email is required</div>
+        <div *ngIf="email.errors.email">Email is invalid</div>
+      </div>
   </div>
   <div class="form-group">
     <label for="password">Password</label>

@@ -1,17 +1,39 @@
-<p>login works!</p>
-<form>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+<form #f="ngForm" (ngSubmit)="onSubmit(f, 'users')">
+
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input
+      required
+      email='true'
+      ngModel
+      #email="ngModel"
+      appLowerCase
+      type="email"
+      class="form-control"
+      name="email"
+      aria-describedby="emailHelp"
+      placeholder="Enter email"
+    />
+    <small id="emailHelp" class="form-text text-muted"
+      >
+      We'll never share your email with anyone else.
+      </small>
+      <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
+        <div *ngIf="email.errors.required">Email is required</div>
+        <div *ngIf="email.errors.email">Email is invalid</div>
+      </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      required minlength="3"
+      #password
+      ngModel
+      type="password"
+      class="form-control"
+      name="password"
+      placeholder="Password"
+    />
+  </div>
+    <button type="submit" class="btn btn-primary"[disabled]="!f.valid">Log In</button>
   </form>

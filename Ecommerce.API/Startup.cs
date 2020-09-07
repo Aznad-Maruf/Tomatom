@@ -25,6 +25,8 @@ namespace Ecommerce.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            Ecommerce.Configuration.ConfigureServices.GlobalConfigureServices(Configuration, services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +36,8 @@ namespace Ecommerce.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            Ecommerce.Configuration.ConfigureServices.Configure(app);
 
             app.UseRouting();
 

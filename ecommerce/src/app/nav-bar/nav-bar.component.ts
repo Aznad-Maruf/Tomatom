@@ -1,3 +1,4 @@
+import { CrudBackendService } from './../crud-backend.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,11 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor() { }
-
-  active: number = 1;
-
+  constructor(public backEnd: CrudBackendService) { }
   ngOnInit(): void {
   }
+
+  userName = this.backEnd.userName();
+  test(){
+    console.log(this.userName);
+    return true;
+  }
+
+  active: number = 1;
 
 }

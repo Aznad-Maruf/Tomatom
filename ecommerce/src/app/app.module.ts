@@ -1,3 +1,5 @@
+import { CanActivateLoggedInService } from './services/can-activate-logged-in.service';
+import { CanActivateAdminService } from './services/can-activate-admin.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router'
@@ -17,6 +19,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LowerCaseDirective } from './lower-case.directive';
+import { LogoutComponent } from './logout/logout.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import {CustomFormsModule} from 'ng2-validation'
 
 @NgModule({
   declarations: [
@@ -31,13 +37,17 @@ import { FormsModule } from '@angular/forms';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LowerCaseDirective,
+    LogoutComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     HttpClientModule,
     FormsModule,
+    CustomFormsModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -45,22 +55,24 @@ import { FormsModule } from '@angular/forms';
       },
       {
         path: 'shopping-cart',
-        component: ShoppingCartComponent
+        component: ShoppingCartComponent,
       },
       {
         path: 'products',
         component: ProductsComponent
       },
       {
-        path: 'checkout',
-        component: CheckOutComponent
+        path: 'my/checkout',
+        component: CheckOutComponent,
+        canActivate:[CanActivateLoggedInService]
       },
       {
         path: 'my/orders',
-        component: MyOrdersComponent
+        component: MyOrdersComponent,
+        canActivate:[CanActivateLoggedInService]
       },
       {
-        path: 'order-success',
+        path: 'my/order-success',
         component: OrderSuccessComponent
       },
       {
@@ -73,16 +85,31 @@ import { FormsModule } from '@angular/forms';
       },
       {
         path: 'admin/products',
-        component: AdminProductsComponent
+        component: AdminProductsComponent,
+        canActivate: [CanActivateAdminService]
       },
       {
         path: 'admin/orders',
-        component: AdminOrdersComponent
+        component: AdminOrdersComponent,
+        canActivate:[CanActivateAdminService]
+      },
+      {
+        path: 'admin/products/new',
+        component: ProductFormComponent,
+        canActivate: [CanActivateAdminService]
+      },
+      {
+        path: 'admin/products/:id',
+        component: ProductFormComponent,
+        canActivate: [CanActivateAdminService]
       }
 
     ])
   ],
-  providers: [],
+  providers: [
+    CanActivateAdminService,
+    CanActivateLoggedInService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

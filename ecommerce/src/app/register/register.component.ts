@@ -1,4 +1,7 @@
+import { CrudBackendService } from './../crud-backend.service';
+import { FormValidationService } from './../form-validation.service';
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router'
 
 @Component({
   selector: 'app-register',
@@ -7,23 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private crudBackendService: CrudBackendService, 
+    private route: ActivatedRoute,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(form){
-    console.log(form);
+    console.log(form.value);
+    this.crudBackendService.url = this.crudBackendService.rootUrl + '/' + 'users';
+    this.crudBackendService.register(form.value);
+    this.router.navigate(['login']);
   }
 
-  ValidateEmail(mail) 
-  {
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value))
-    {
-      return (true)
-    }
-      alert("You have entered an invalid email address!")
-      return (false)
+  test(v){
+    console.log(v);
   }
 
 
