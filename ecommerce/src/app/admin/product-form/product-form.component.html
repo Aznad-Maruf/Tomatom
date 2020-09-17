@@ -98,20 +98,17 @@
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
-      <button type="button" class="btn btn-danger" (click)="onDelete(product.id)">Delete</button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="onDelete(product.id)"
+      >
+        Delete
+      </button>
     </form>
   </div>
-  <div class="col">
-    <div class="card" style="width: 18rem">
-      <img class="card-img-top" [src]="imageUrl.value"  />
-      <div class="card-body">
-        <h3 class="card-title">{{title.value}}</h3>
-        <p class="card-text">
-          {{price.value|currency:'BDT '}}
-        </p>
-      </div>
-    </div>
-  </div>
+  <product [product]='f.value'></product>
 </div>
 
 {{ f?.value | json }}
+{{ f.value.name }}

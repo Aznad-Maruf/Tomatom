@@ -71,7 +71,7 @@ export class ProductFormComponent implements OnInit {
     }
     else{
       this.backEnd.url = this.backEnd.rootUrl+'/'+"product";
-      await this.backEnd.register(f.value);
+      await this.backEnd.push(f.value);
     }
     this.router.navigate(['admin/products']);
     

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { GreaterThanValidator } from 'ng2-validation';
+import {take} from 'rxjs/operators'
 
 interface user {
   id;
@@ -47,11 +48,15 @@ export class CrudBackendService {
     return this.getDecodedToken()['isAdmin'];
   }
 
-  async register(data) {
-    console.log(data);
-    return await this.http.post(this.url, data).toPromise().then((response) => {
-      console.log(response);
+  async push(data) {
+    console.log(data.value+"before post");
+    await this.http.post(this.url, data).toPromise().then((response) => {
+      
+      this.data = response;
+      // console.log(this.data+"inside");
     });
+    console.log(JSON.stringify(this.data)+"after post");
+    return JSON.stringify(this.data);
     // map((response) => {
     //   console.log(response);
     // });
@@ -122,6 +127,10 @@ export class CrudBackendService {
       return this.data;
   }
 
+  async getObservable(){
+    return await this.http.get(this.url);
+  }
+
   async put(data){
     await this.http.put(this.url, data)
       .toPromise()
@@ -139,4 +148,16 @@ export class CrudBackendService {
     })
     return this.data;
   }
+
+  makeUrl(postfix){
+    this.url = this.rootUrl + '/' + postfix;
+    return this.url;
+  }
+
+  async getAddedItems(){
+    this.makeUrl('cartitem/' + localStorage.getItem('cartId'));
+    var items = await this.get();
+    return items;
+  }
+
 }

@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(form){
     console.log(form.value);
     this.crudBackendService.url = this.crudBackendService.rootUrl + '/' + 'users';
-    this.crudBackendService.register(form.value);
+    this.crudBackendService.push(form.value);
     this.router.navigate(['login']);
   }
 

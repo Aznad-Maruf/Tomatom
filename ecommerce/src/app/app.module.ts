@@ -1,3 +1,4 @@
+import { TestService } from './test.service';
 import { CanActivateLoggedInService } from './services/can-activate-logged-in.service';
 import { CanActivateAdminService } from './services/can-activate-admin.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,7 +24,8 @@ import { LowerCaseDirective } from './lower-case.directive';
 import { LogoutComponent } from './logout/logout.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import {CustomFormsModule} from 'ng2-validation'
-
+import {DataTablesModule} from 'angular-datatables';
+import { ProductComponent } from './product/product.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,8 @@ import {CustomFormsModule} from 'ng2-validation'
     RegisterComponent,
     LowerCaseDirective,
     LogoutComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
@@ -48,10 +51,11 @@ import {CustomFormsModule} from 'ng2-validation'
     HttpClientModule,
     FormsModule,
     CustomFormsModule,
+    DataTablesModule,
     RouterModule.forRoot([
       {
         path: '',
-        component: HomeComponent
+        component: ProductsComponent
       },
       {
         path: 'shopping-cart',
@@ -108,7 +112,8 @@ import {CustomFormsModule} from 'ng2-validation'
   ],
   providers: [
     CanActivateAdminService,
-    CanActivateLoggedInService
+    CanActivateLoggedInService,
+    TestService
   ],
   bootstrap: [AppComponent]
 })

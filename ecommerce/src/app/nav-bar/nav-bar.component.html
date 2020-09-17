@@ -1,9 +1,15 @@
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
   <li [ngbNavItem]="1">
-    <a ngbNavLink routerLink="/" class="text-info">E</a>
+    <a ngbNavLink routerLink="/" class="text-info">
+      <i class="fa fa-pagelines" aria-hidden="true" style="font-size:48px;color:red"></i>
+    </a>
   </li>
   <li [ngbNavItem]="2">
-    <a ngbNavLink routerLink="/shopping-cart">Shopping Cart</a>
+    <a ngbNavLink routerLink="/shopping-cart">
+      <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:30px;color:blueviolet" ></i>
+      <span class="badge badge-pill badge-warning">{{totalItems}}</span>
+      <span>{{testString}}</span>
+    </a>
     <ng-template ngbNavContent> </ng-template>
   </li>
   <li [ngbNavItem] *ngIf="!backEnd.isLoggedIn()">

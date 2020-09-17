@@ -46,6 +46,8 @@ namespace Ecommerce.Repository.Abstruction.Base
                 return Update(entity);
             }
 
+            Table.Remove(entity);
+
             return false;
         }
 

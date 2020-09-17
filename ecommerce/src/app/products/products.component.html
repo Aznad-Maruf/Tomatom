@@ -1,1 +1,59 @@
-<p>products works!</p>
+<div class="row">
+  <div class="col-3">
+    <a
+      routerLink="/"
+      class="list-group-item list-group-item-action"
+      [queryParams]="{ category: 'AllCategories' }"
+      [class.active]="'AllCategories' === selectedCategory"
+    >
+      All Categories
+    </a>
+    <div *ngFor="let category of categories" class="list-group">
+      <a
+        routerLink="/"
+        class="list-group-item list-group-item-action"
+        [queryParams]="{ category: category.name }"
+        [class.active]="category.name === selectedCategory"
+      >
+        {{ category.name }}
+      </a>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="row justify-content-around">
+      <div *ngFor="let product of products; let i = index">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <product [product]="product"></product>
+              <div class="card-footer">
+                <button
+                  *ngIf="!cartService.productQuantity[product.id];else updateQuantity"
+                  (click)="cartService.addToCart(product)"
+                  class="btn btn-primary btn-block"
+                >
+                  Add to Cart
+                </button>
+                <ng-template #updateQuantity>
+                  <div class="row no-gutters">
+                    <div class="col-2 ">
+                      <button (click)="cartService.removeFromCart(product)" class="btn btn-secondary">-</button>
+                    </div>
+                    <div class="col-8 text-center">
+                      <p>{{cartService.productQuantity[product.id]}} in cart</p>
+                    </div>
+                    <div class="col-2">
+                      <button (click)="cartService.addToCart(product)" class="btn btn-secondary">+</button>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-100 mb-2"></div>
+      </div>
+    </div>
+  </div>
+</div>

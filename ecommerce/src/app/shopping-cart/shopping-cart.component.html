@@ -1,1 +1,39 @@
-<p>shopping-cart works!</p>
+<h2 class="text-center">Shopping Cart</h2>
+<p class="text-center">You have {{ totalItems }} components in your cart.</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th></th>
+      <th scope="col">Product</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items; let i = index">
+      <th *ngIf="item.quantity>0" scope="row">{{ i + 1 }}</th>
+      <td *ngIf="item.quantity>0">
+        <img [src]="item.product.imageUrl" class="thumbnail" alt="dd">
+      </td>
+      <td *ngIf="item.quantity>0">{{ item.product.name }}</td>
+      <td *ngIf="item.quantity>0">{{ item.product.price }}</td>
+      <td *ngIf="item.quantity>0">{{ item.quantity }}</td>
+      <td *ngIf="item.quantity>0">{{ item.quantity * item.product.price | currency: "BDT " }}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <th class="text-bold">{{ totalPrice | currency: "BDT " }}</th>
+    </tr>
+  </tfoot>
+</table>
+
+<button class="btn btn-danger" (click)="cartService.clearCart()">Clear Shopping Cart</button>

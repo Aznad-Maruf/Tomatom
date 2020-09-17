@@ -32,6 +32,10 @@ namespace Ecommerce.Configuration
             services.AddTransient<ICategoryManager, CategoryManager>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductManager, ProductManager>();
+            services.AddTransient<IShoppingCartManager, ShoppingCartManager>();
+            services.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
+            services.AddTransient<ICartItemRepository, CartItemRepository>();
+            services.AddTransient<ICartItemManager, CartItemManager>();
 
 
             services.AddCors();

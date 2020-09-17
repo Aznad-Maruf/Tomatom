@@ -1,14 +1,23 @@
-<a routerLink="/admin/products/new" class="btn btn-primary">Create New Product</a>
-<hr>
+<a routerLink="/admin/products/new" class="btn btn-primary"
+  >Create New Product</a
+>
+<hr />
 
 <div>
-  <input #searchBy (keyup)="searchProducts(searchBy.value)" class="form-control" type="text" placeholder="Search...">
+  <input
+    #searchBy
+    (keyup)="searchProducts(searchBy.value)"
+    class="form-control"
+    type="text"
+    placeholder="Search..."
+  />
 </div>
 
-<hr>
-<p class="text-center">List of Products</p>
-<table class="table">
+<hr/>
 
+<hr />
+<p class="text-center">List of Products</p>
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -20,11 +29,17 @@
   </thead>
   <tbody>
     <tr *ngFor="let product of products; index as i">
-      <td>{{i+1}}</td>
-      <td>{{product.name}}</td>
-      <td>{{product.price}}</td>
-      <td>{{product.category.name}}</td>
-      <td><a [routerLink]="['/admin/products/', product.id]" class="btn btn-primary">Edit</a></td>
+      <td>{{ i + 1 }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.category.name }}</td>
+      <td>
+        <a
+          [routerLink]="['/admin/products/', product.id]"
+          class="btn btn-primary"
+          >Edit</a
+        >
+      </td>
     </tr>
   </tbody>
 </table>

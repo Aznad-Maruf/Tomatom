@@ -3,14 +3,16 @@ using Ecommerce.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ecommerce.Database.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    partial class EcommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200911111302_cart-item-relation-fixed")]
+    partial class cartitemrelationfixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,8 +127,6 @@ namespace Ecommerce.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("ShoppingCartId");
 
                     b.ToTable("CartItems");
@@ -143,12 +143,6 @@ namespace Ecommerce.Database.Migrations
 
             modelBuilder.Entity("Ecommerce.Model.HelpingModels.CartItem", b =>
                 {
-                    b.HasOne("Ecommerce.Model.EntityModels.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Ecommerce.Model.EntityModels.ShoppingCart", "ShoppingCart")
                         .WithMany("CartItems")
                         .HasForeignKey("ShoppingCartId")
